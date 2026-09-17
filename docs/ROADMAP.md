@@ -34,13 +34,13 @@ user; the new workflow still needs its first hosted run and its
 Remaining integration steps:
 
 - [x] Commit the milestone branch with a Conventional Commit and push it for review.
-- [ ] Open a pull request and obtain a passing hosted **Tests and 100% coverage** run.
+- [x] Open [PR #1](https://github.com/shra-ja/roll-tracker/pull/1).
+- [ ] Obtain a passing hosted **Tests and 100% coverage** run.
 - [ ] Require that job in `main` branch protection and integrate the reviewed change.
 - [ ] Delete the short-lived branch after integration.
 
-Milestone commit `f95e2e7` is pushed to `origin/feat/offline-shell`. PR creation and
-hosted CI verification are pending authenticated GitHub API access. No merge has
-been performed. No remaining local implementation gap was found in the audit.
+Milestone commit `f95e2e7` is pushed to `origin/feat/offline-shell` and PR #1 is
+open. Hosted CI verification is in progress. No merge has been performed.
 
 ## 2 — First file-import vertical slice
 

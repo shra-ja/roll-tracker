@@ -40,8 +40,11 @@ Python 3 from the existing asdf setup runs the standard-library-only X11 test he
 - Tauri production executable built successfully; installer packaging is deferred.
 - Milestone audit confirmed all local implementation items; Markdown links and
   workflow YAML validate. Outstanding integration steps are explicit in `ROADMAP.md`.
-- GitHub workflow is added but has not run remotely. Add its **Tests and 100%
-  coverage** job to required branch checks after the first hosted run.
+- [PR #1](https://github.com/shra-ja/roll-tracker/pull/1) is open. The first hosted
+  run exposed an asdf setup error before tests: `asdf_branch` cloned modern Go
+  source instead of installing a binary. The workflow now uses `asdf_version`.
+  Hosted validation of the correction is pending. Require **Tests and 100%
+  coverage** in branch protection before integration.
 
 See `TESTING.md` for red/green evidence, scope, exclusions and probe behavior.
 Reports and the native screenshot are ignored local artifacts. Other platforms
@@ -50,10 +53,8 @@ covers the minimal shell and build script.
 
 ## Next task
 
-PR creation and CI monitoring are authorized but pending authenticated GitHub
-API access; SSH push is configured, while no CLI token or connected integration
-is available. The PR description is prepared. Require green hosted CI before
-integration. Milestone 2 should verify one real
+PR #1 is open through the GitHub plugin. Verify hosted CI on the latest branch
+commit, then obtain review before integration. Milestone 2 should verify one real
 file format, define record identity/time semantics, and implement the first
 transactional local import using test-first Rust domain tests and synthetic data.
 

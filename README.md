@@ -84,4 +84,5 @@ Keep [current status](docs/STATUS.md) up to date between tasks.
 
 GitHub Actions runs **Tests and 100% coverage** for pull requests, `main` pushes
 and merge queues. Branch protection is enabled by the user; add this job as a
-required check after the workflow first runs. The workflow has not run remotely yet.
+required check before merging. Hosted results are available on
+[PR #1](https://github.com/shra-ja/roll-tracker/pull/1).
