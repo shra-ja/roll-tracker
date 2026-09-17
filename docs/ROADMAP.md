@@ -33,13 +33,14 @@ user; the new workflow still needs its first hosted run and its
 **Tests and 100% coverage** job selected as a required check before integration.
 Remaining integration steps:
 
-- [ ] Commit the milestone branch with a Conventional Commit and push it for review.
+- [x] Commit the milestone branch with a Conventional Commit and push it for review.
 - [ ] Open a pull request and obtain a passing hosted **Tests and 100% coverage** run.
 - [ ] Require that job in `main` branch protection and integrate the reviewed change.
 - [ ] Delete the short-lived branch after integration.
 
-No milestone code has been committed, pushed or merged yet. These are integration
-steps; no remaining local implementation gap was found in the milestone audit.
+Milestone commit `f95e2e7` is pushed to `origin/feat/offline-shell`. PR creation and
+hosted CI verification are pending authenticated GitHub API access. No merge has
+been performed. No remaining local implementation gap was found in the audit.
 
 ## 2 — First file-import vertical slice
 

@@ -6,7 +6,8 @@ Updated: 2026-09-17
 
 Milestone 1 is implemented on `feat/offline-shell`, branched from authorized
 baseline `2d78399` after fetching and verifying `main` against `origin/main`.
-No milestone code is committed, pushed or merged. The remote uses SSH:
+Milestone implementation is committed as `f95e2e7` and pushed to
+`origin/feat/offline-shell`; no merge has been performed. The remote uses SSH:
 `git@github.com:shra-ja/roll-tracker.git`. The baseline was previously pushed.
 The user reports branch protection enabled on `main`.
 
@@ -49,8 +50,10 @@ covers the minimal shell and build script.
 
 ## Next task
 
-Review and, when authorized, commit/push this branch using Conventional Commits.
-Require green hosted CI before integration. Milestone 2 should verify one real
+PR creation and CI monitoring are authorized but pending authenticated GitHub
+API access; SSH push is configured, while no CLI token or connected integration
+is available. The PR description is prepared. Require green hosted CI before
+integration. Milestone 2 should verify one real
 file format, define record identity/time semantics, and implement the first
 transactional local import using test-first Rust domain tests and synthetic data.
 
