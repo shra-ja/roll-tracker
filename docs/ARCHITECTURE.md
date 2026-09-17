@@ -1,7 +1,8 @@
-# Proposed architecture
+# Architecture
 
-Tauri and offline operation are requirements. The remaining design below is a
-starting proposal, to be validated and recorded as decisions during implementation.
+The shell uses vanilla TypeScript, Vite/npm and Tauri 2; see decision 0001.
+Node.js and Rust are managed with asdf. The import/storage/service design below
+remains a proposal for later milestones. Instrumentation is documented in `TESTING.md`.
 
 ## Boundaries
 

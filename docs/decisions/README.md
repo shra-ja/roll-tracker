@@ -29,5 +29,6 @@ What tradeoffs, limitations, and follow-up work result?
 Relevant documentation, experiments, or validation results.
 ```
 
-Tauri and offline operation originate from the project brief. No additional
-architecture decisions have been accepted yet.
+Tauri and offline operation originate from the project brief.
+
+- [0001 — Minimal offline shell and test stack](0001-shell-and-test-stack.md)

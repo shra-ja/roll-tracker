@@ -15,22 +15,31 @@ red-green-refactor, and passing full tests and 100% coverage before integration.
 
 ## 1 — Runnable offline shell
 
-- [ ] Select frontend tooling and first development target; record decisions.
-- [ ] Create a short-lived task branch before adding any executable code.
-- [ ] Establish test harnesses and coverage instrumentation for frontend, Rust,
-  and executable tooling; enforce 100% per-file applicable metrics, including
-  unexecuted files. Document exclusions and prove failing gates with probes.
-- [ ] Add CI running full tests and coverage gates; document actual commands.
-- [ ] Scaffold Tauri using verified current documentation and pinned dependencies.
-- [ ] Use red-green-refactor to add a bundled, accessible empty-state screen
-  with game selection.
-- [ ] Document exact prerequisites and development, build, and check commands.
-- [ ] Launch the native application and verify the shell without network access.
+- [x] Select and record vanilla TypeScript/Vite/npm, Tauri 2, and Ubuntu 24.04.
+- [x] Create `feat/offline-shell` from the authorized baseline before adding code.
+- [x] Pin asdf Node/Rust toolchains and exact frontend/Rust dependencies.
+- [x] Establish frontend/tooling V8 coverage and native LLVM branch instrumentation,
+  including `build.rs`; enforce 100% per-file metrics and source inventory.
+- [x] Prove gate failures for unexecuted files, missed branches and missing reports.
+- [x] Add CI running the same local checks and uploading coverage/screenshots.
+- [x] Scaffold Tauri with bundled assets and restrictive production CSP.
+- [x] Use red-green-refactor for an accessible empty state with game selection.
+- [x] Document and run setup, tests, coverage, lint/type and production build commands.
+- [x] Launch and exercise the native shell in an isolated network namespace.
 
-Done when a clean setup can build and launch the shell using documented commands.
-Full tests and 100% coverage gates must pass before integration. Report untested
-platforms explicitly. Configure GitHub required checks and `main` protection when
-CI is available and remote administration is authorized; enforcement remains pending.
+Local milestone validation is complete on Ubuntu 24.04 x86_64. Windows/macOS
+and installer packaging remain untested. Branch protection is enabled by the
+user; the new workflow still needs its first hosted run and its
+**Tests and 100% coverage** job selected as a required check before integration.
+Remaining integration steps:
+
+- [ ] Commit the milestone branch with a Conventional Commit and push it for review.
+- [ ] Open a pull request and obtain a passing hosted **Tests and 100% coverage** run.
+- [ ] Require that job in `main` branch protection and integrate the reviewed change.
+- [ ] Delete the short-lived branch after integration.
+
+No milestone code has been committed, pushed or merged yet. These are integration
+steps; no remaining local implementation gap was found in the milestone audit.
 
 ## 2 — First file-import vertical slice
 

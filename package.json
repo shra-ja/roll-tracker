@@ -1,0 +1,30 @@
+{
+  "name": "roll-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "26.8.1"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 1420 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run tests/ui.test.ts tests/coverage.test.ts --environment jsdom",
+    "coverage": "vitest run tests/ui.test.ts tests/coverage.test.ts --environment jsdom --coverage --coverage.provider=v8 --coverage.reportsDirectory=coverage/frontend --coverage.include='src/**/*.ts' --coverage.include='scripts/**/*.ts' --coverage.reporter=text --coverage.reporter=json --coverage.reporter=json-summary --coverage.reporter=html --coverage.thresholds.perFile --coverage.thresholds.100",
+    "test:native": "dbus-run-session -- xvfb-run -a vitest run tests/native.test.ts",
+    "test:offline": "bwrap --unshare-net --dev-bind / / --proc /proc npm run test:native",
+    "test:probes": "vitest run tests/probes.test.ts",
+    "coverage:verify": "vitest run tests/reports.test.ts",
+    "check": "npm run coverage && npm run build && npm run test:offline && npm run test:probes && npm run coverage:verify && cargo fmt --manifest-path src-tauri/Cargo.toml --check && cargo clippy --manifest-path src-tauri/Cargo.toml --locked --all-targets -- -D warnings",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.11.4",
+    "@types/node": "26.6.1",
+    "@vitest/coverage-v8": "5.0.1",
+    "jsdom": "30.1.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  }
+}

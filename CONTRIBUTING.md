@@ -58,9 +58,10 @@ introducing an uncovered file/branch and observing failure, then remove the prob
 Also verify missing-report handling. Do not merge application scaffolding before
 these gates exist and pass.
 
-There is currently no executable application code or selected toolchain. Coverage
-is **not applicable**, not 100%. Tool selection and live enforcement are part of
-milestone 1. A repository document cannot itself enforce a numeric threshold.
+Run `npm run check` before handoff. It creates fresh V8/LLVM reports, validates
+per-file metrics against a source inventory, and probes gate failures. See
+[testing details](docs/TESTING.md) and [setup](README.md). CI runs the same command;
+make its **Tests and 100% coverage** job a required check.
 
 ## Trunk-based development
 
@@ -103,9 +104,9 @@ docs-only initialization is the bootstrap exception, not permission to write
 application code directly on the trunk. Create a task branch before introducing
 any executable code.
 
-The Git remote `origin` is `https://github.com/shra-ja/roll-tracker`.
+The Git remote `origin` is `git@github.com:shra-ja/roll-tracker.git`.
 
-When a remote is configured, protect `main`: require pull requests, passing test
+The user has enabled branch protection. Keep `main` protected: require pull requests, passing test
 and 100% coverage checks, checks against current trunk, and block direct/force
 pushes and deletion. Configure these in the chosen host; a tracked file alone
 does not enable server-side protection. Local hooks may supplement CI but are

@@ -22,8 +22,9 @@ inspect actual code before assuming a feature exists.
 
 ## Implementation conventions
 
-- Tauri is decided; frontend framework, dependency versions, package manager, and
-  database library are not yet selected. Record consequential choices in
+- Use vanilla TypeScript, Vite, npm, and Tauri 2 (decision 0001). Manage Node.js
+  and Rust with asdf and `.tool-versions`. The database library is not yet
+  selected. Record consequential choices in
   `docs/decisions/` and update setup instructions when scaffolding the app.
 - Keep UI presentation, game rules, parsing, persistence, and OS discovery separate.
 - Prefer Rust for file access, import validation, persistence, and authoritative
@@ -67,9 +68,10 @@ inspect actual code before assuming a feature exists.
 
 ## Validation and handoff
 
-- This is currently a documentation scaffold: no app, manifests, or test commands
-  exist. Do not report planned commands as runnable or checks as passing.
-- Once code exists, document exact setup/check commands in `README.md`. Run focused
+- The shell exists; imports and persistence do not. Use `npm test` for UI/tooling
+  tests, `npm run check` for all test/coverage/type/lint gates, and
+  `npm run tauri -- build --no-bundle` for a production desktop executable.
+- Document exact setup/check commands in `README.md`. Run focused
   tests during TDD and the full tests and coverage gates before handoff/integration.
   Test observable behavior rather than mirroring implementation.
 - Prioritize parser failures, repeated/overlapping imports, cross-account isolation,
