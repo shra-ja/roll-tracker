@@ -13,6 +13,11 @@ cannot count as successful native coverage.
 The offline command wraps that test in Bubblewrap's isolated network namespace.
 Only loopback is available for WebDriver; there is no external network route or
 Vite server. Cargo uses pre-fetched dependencies with `--locked --offline`.
+Ubuntu's hosted runner restricts unprivileged user namespaces. CI loads a narrow
+AppArmor profile for a CI-only copy of `/usr/local/bin/bwrap`, granting that
+executable user namespaces without turning off the system-wide restriction.
+The preflight must succeed; the offline test is never skipped or run online as
+a fallback. See [Ubuntu's namespace policy](https://discourse.ubuntu.com/t/understanding-apparmor-user-namespace-restriction/58007).
 This is a native development build with production bundled assets. Installer
 packaging and other operating systems are later release work.
 

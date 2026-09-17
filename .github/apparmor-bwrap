@@ -1,0 +1,8 @@
+# CI-only copy of Ubuntu's Bubblewrap binary. Grant user namespaces to this
+# executable without disabling the runner's system-wide AppArmor restriction.
+abi <abi/4.0>,
+include <tunables/global>
+
+profile roll-tracker-ci-bwrap /usr/local/bin/bwrap flags=(unconfined) {
+  userns,
+}

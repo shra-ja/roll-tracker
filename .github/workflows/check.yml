@@ -28,6 +28,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev xvfb webkit2gtk-driver xdotool dbus-x11 bubblewrap python3
+      - name: Allow network namespaces for the CI test sandbox
+        run: |
+          sudo install -m 0755 /usr/bin/bwrap /usr/local/bin/bwrap
+          sudo apparmor_parser -r .github/apparmor-bwrap
+          bwrap --unshare-net --dev-bind / / --proc /proc true
       - uses: asdf-vm/actions/install@a7acd3c0f80eb138922a2da9514d1df22864eaca # v4
         with:
           asdf_version: 0.20.0

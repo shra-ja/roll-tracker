@@ -43,7 +43,10 @@ Python 3 from the existing asdf setup runs the standard-library-only X11 test he
 - [PR #1](https://github.com/shra-ja/roll-tracker/pull/1) is open. The first hosted
   run exposed an asdf setup error before tests: `asdf_branch` cloned modern Go
   source instead of installing a binary. The workflow now uses `asdf_version`.
-  Hosted validation of the correction is pending. Require **Tests and 100%
+  The second run passed tool setup/frontend tests, then exposed Ubuntu's
+  unprivileged namespace restriction. CI now grants user namespaces to its own
+  Bubblewrap executable with a scoped AppArmor profile, preserving offline tests.
+  Hosted validation of the corrections is pending. Require **Tests and 100%
   coverage** in branch protection before integration.
 
 See `TESTING.md` for red/green evidence, scope, exclusions and probe behavior.
