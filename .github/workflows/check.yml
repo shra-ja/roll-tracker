@@ -1,0 +1,62 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Tests and 100% coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      ASDF_RUST_PROFILE: minimal
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Install Linux native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev xvfb webkit2gtk-driver xdotool dbus-x11 bubblewrap python3
+      - name: Allow network namespaces for the CI test sandbox
+        run: |
+          sudo install -m 0755 /usr/bin/bwrap /usr/local/bin/bwrap
+          sudo apparmor_parser -r .github/apparmor-bwrap
+          bwrap --unshare-net --dev-bind / / --proc /proc true
+      - uses: asdf-vm/actions/install@a7acd3c0f80eb138922a2da9514d1df22864eaca # v4
+        with:
+          asdf_version: 0.20.0
+      - name: Install pinned coverage and native test tools
+        run: |
+          rustup component add rustfmt clippy llvm-tools-preview
+          cargo install cargo-llvm-cov --version 0.9.1 --locked
+          cargo install tauri-driver --version 2.0.6 --locked
+          asdf reshim
+      - name: Install locked dependencies before network isolation
+        run: |
+          npm ci --ignore-scripts
+          cargo fetch --manifest-path src-tauri/Cargo.toml --locked
+      - name: Tests, offline native smoke test, coverage gates and lint
+        run: npm run check
+      - name: Build native desktop binary
+        run: npm run tauri -- build --no-bundle
+      - name: Save coverage reports and native screenshot
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: coverage-and-native-smoke
+          path: |
+            coverage/frontend/
+            coverage/native/
+            test-results/
+          if-no-files-found: error

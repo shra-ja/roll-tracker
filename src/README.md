@@ -1,5 +1,6 @@
-# Frontend placeholder
+# Frontend
 
-Future home of the web UI hosted by Tauri. Framework/tooling selection belongs to
-milestone 1. Keep presentation here and native I/O behind typed backend commands.
-Replace this placeholder with useful module guidance once application code exists.
+`main.ts` renders the offline empty state and game selector. `style.css` contains
+bundled responsive styling; there are no remote fonts/assets. Tests import the
+actual entry point, so startup is included in coverage. Keep future native I/O
+behind typed backend commands rather than adding filesystem access here.
