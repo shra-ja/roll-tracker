@@ -26,21 +26,16 @@ red-green-refactor, and passing full tests and 100% coverage before integration.
 - [x] Use red-green-refactor for an accessible empty state with game selection.
 - [x] Document and run setup, tests, coverage, lint/type and production build commands.
 - [x] Launch and exercise the native shell in an isolated network namespace.
+- [x] Commit the milestone with Conventional Commits and publish
+  [PR #1](https://github.com/shra-ja/roll-tracker/pull/1).
+- [x] Obtain a passing hosted **Tests and 100% coverage** run.
+- [x] Configure **Tests and 100% coverage** as a required check on protected `main`.
 
-Local milestone validation is complete on Ubuntu 24.04 x86_64. Windows/macOS
-and installer packaging remain untested. Branch protection is enabled by the
-user; the new workflow still needs its first hosted run and its
-**Tests and 100% coverage** job selected as a required check before integration.
-Remaining integration steps:
-
-- [x] Commit the milestone branch with a Conventional Commit and push it for review.
-- [x] Open [PR #1](https://github.com/shra-ja/roll-tracker/pull/1).
-- [ ] Obtain a passing hosted **Tests and 100% coverage** run.
-- [ ] Require that job in `main` branch protection and integrate the reviewed change.
-- [ ] Delete the short-lived branch after integration.
-
-Milestone commit `f95e2e7` is pushed to `origin/feat/offline-shell` and PR #1 is
-open. Hosted CI verification is in progress. No merge has been performed.
+Milestone 1 implementation and validation are complete on Ubuntu 24.04 x86_64.
+The user confirmed hosted CI passed and required checks were configured on
+2026-09-19. Windows/macOS and installer packaging remain untested and are covered
+by milestone 6 release validation. Review, integration and branch deletion follow
+the standard workflow in `../CONTRIBUTING.md`.
 
 ## 2 — First file-import vertical slice
 

@@ -1,15 +1,14 @@
 # Project status
 
-Updated: 2026-09-17
+Updated: 2026-09-19
 
 ## Current state
 
-Milestone 1 is implemented on `feat/offline-shell`, branched from authorized
-baseline `2d78399` after fetching and verifying `main` against `origin/main`.
-Milestone implementation is committed as `f95e2e7` and pushed to
-`origin/feat/offline-shell`; no merge has been performed. The remote uses SSH:
-`git@github.com:shra-ja/roll-tracker.git`. The baseline was previously pushed.
-The user reports branch protection enabled on `main`.
+Milestone 1 implementation and validation are complete. Work was developed on
+`feat/offline-shell` from authorized baseline `2d78399` and published in
+[PR #1](https://github.com/shra-ja/roll-tracker/pull/1). The user confirmed hosted
+CI passed and **Tests and 100% coverage** is required on protected `main`.
+The remote uses SSH: `git@github.com:shra-ja/roll-tracker.git`.
 
 The app is a vanilla TypeScript/Vite web UI in Tauri 2, with game selection,
 an accessible offline empty state and bundled styling. No import, database,
@@ -39,15 +38,12 @@ Python 3 from the existing asdf setup runs the standard-library-only X11 test he
   screenshot capture and graceful shutdown with process coverage flushed.
 - Tauri production executable built successfully; installer packaging is deferred.
 - Milestone audit confirmed all local implementation items; Markdown links and
-  workflow YAML validate. Outstanding integration steps are explicit in `ROADMAP.md`.
-- [PR #1](https://github.com/shra-ja/roll-tracker/pull/1) is open. The first hosted
-  run exposed an asdf setup error before tests: `asdf_branch` cloned modern Go
-  source instead of installing a binary. The workflow now uses `asdf_version`.
-  The second run passed tool setup/frontend tests, then exposed Ubuntu's
-  unprivileged namespace restriction. CI now grants user namespaces to its own
-  Bubblewrap executable with a scoped AppArmor profile, preserving offline tests.
-  Hosted validation of the corrections is pending. Require **Tests and 100%
-  coverage** in branch protection before integration.
+  workflow YAML validate.
+- Hosted CI passed, as confirmed by the user on 2026-09-19. The workflow installs
+  the pinned asdf binary with `asdf_version` and grants user namespaces to its
+  own Bubblewrap executable with a scoped AppArmor profile, preserving offline
+  tests on the Ubuntu runner. **Tests and 100% coverage** is configured as a
+  required check in branch protection.
 
 See `TESTING.md` for red/green evidence, scope, exclusions and probe behavior.
 Reports and the native screenshot are ignored local artifacts. Other platforms
@@ -56,10 +52,10 @@ covers the minimal shell and build script.
 
 ## Next task
 
-PR #1 is open through the GitHub plugin. Verify hosted CI on the latest branch
-commit, then obtain review before integration. Milestone 2 should verify one real
-file format, define record identity/time semantics, and implement the first
-transactional local import using test-first Rust domain tests and synthetic data.
+Milestone 2: verify one real file format, define record identity/time semantics,
+and implement the first transactional local import using test-first Rust domain
+tests and synthetic data. Start a new short-lived branch from up-to-date `main`
+following the integration workflow in `../CONTRIBUTING.md`.
 
 ## Outstanding decisions
 

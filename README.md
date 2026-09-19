@@ -83,6 +83,6 @@ Keep [current status](docs/STATUS.md) up to date between tasks.
 | [Stack decision](docs/decisions/0001-shell-and-test-stack.md) | Tools, target platform and tradeoffs |
 
 GitHub Actions runs **Tests and 100% coverage** for pull requests, `main` pushes
-and merge queues. Branch protection is enabled by the user; add this job as a
-required check before merging. Hosted results are available on
+and merge queues. The user has configured this job as a required check on
+protected `main`. Hosted results are available on
 [PR #1](https://github.com/shra-ja/roll-tracker/pull/1).
