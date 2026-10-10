@@ -61,6 +61,12 @@ Development builds read `ASTRAL_INDEX_ZOOM`, a webview zoom from 0.5 to 3. Under
 WSL the app renders at 1×, so to match a Windows display at 125% run
 `ASTRAL_INDEX_ZOOM=1.25 npm run tauri:mock`. Release builds ignore it.
 
+`ASTRAL_INDEX_SIZE_OVERLAY=1` makes a development build show the window's size
+in CSS pixels in the bottom-right corner, with the zoom when it is not 1,
+updating while the window is resized, for finding the sizes where a layout
+breaks. Other values, and release builds, show nothing. For example,
+`ASTRAL_INDEX_SIZE_OVERLAY=1 ASTRAL_INDEX_ZOOM=1.25 npm run tauri:mock`.
+
 ## Checks
 
 | Command | Does |

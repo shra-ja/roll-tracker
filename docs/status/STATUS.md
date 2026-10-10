@@ -36,7 +36,10 @@ history import works end to end; Genshin Impact has its screens but no import ye
 
 ## In progress
 
-None.
+### Size overlay (2026-10-10)
+
+0048's first task, on `feat/size-overlay`: `ASTRAL_INDEX_SIZE_OVERLAY=1` shows
+the window's size in debug builds. Tests failed first, then passed natively.
 
 ## Known limitations
 
@@ -50,19 +53,15 @@ None.
   grey in an empty field.
 - Server names other than Asia (`prod_official_asia`) have not been seen in a
   real retrieval.
-- An intermittent frontend test failure, components' events going unrecorded
-  after a click, was seen inside the suite-discovery mutation probe and, on
-  2026-10-06, once in a plain run alongside typecheck and lint (CategoryTabs,
-  RetrievalProgress). A failing probe saves a snapshot to
-  `test-results/probe-failures/`. See
+- An intermittent frontend test failure, events going unrecorded after a click,
+  was seen in the suite-discovery probe and once, on 2026-10-06, in a plain run.
+  A failing probe saves a snapshot to `test-results/probe-failures/`. See
   [probe failure snapshots](history/2026-10-04-probe-failure-snapshots.md).
 
 ## Next
 
-If the probe flake recurs, read its snapshot before rerunning. Next is feature
-0048's layout fixes, then 0038's checks, including native Windows validation.
-Banner metadata and art wait for the downloader and milestone 12 (decision
-0022).
+If the probe flake recurs, read its snapshot before rerunning. Next is the rest
+of feature 0048, then 0038's checks, including native Windows validation.
 
 ## Keeping this file current
 

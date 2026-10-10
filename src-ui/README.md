@@ -11,7 +11,8 @@ The Vue webview app, as the `astral-index-ui` npm workspace. See
   move focus.
 - `src/components/` holds presentational components, which take props and emit
   events and never make native calls, grouped by where they are used:
-  `layout/` for the shell and screen frame (`AppSidebar`, `ScreenHeader`),
+  `layout/` for the shell and screen frame (`AppSidebar`, `ScreenHeader`,
+  and `SizeOverlay`, the development window size overlay),
   `history/` for the History screen, `import/` for the Import screen, and
   `shared/` for pieces any screen may use (`AppTooltip`, `CachePicker`, and
   `AstralTile`, the brand emblem in its tile).
@@ -19,10 +20,13 @@ The Vue webview app, as the `astral-index-ui` npm workspace. See
   commands: `useRetrieval.ts` runs retrieval, review and saving, and
   `useHistory.ts` reads the saved accounts and saved history a page at a time,
   keeping each game's account chosen in the switcher until the app restarts or
-  a save into that game.
+  a save into that game. `useWindowSize.ts` follows the window's size for the
+  size overlay.
 - `src/commands.ts` is the typed client for the native commands. Results carry
   failure categories only, never request contexts, paths or native detail. Keep
   native I/O behind typed backend commands rather than adding it here.
+- `src/dev-options.ts` reads the development options a debug build asks for
+  with a page script, such as the size overlay; release builds never add one.
 - `src/input-modality.ts` tracks whether the latest press came from the
   keyboard, so tooltips show at once on keyboard focus.
 - `src/messages.ts` says what the app tells the user about failures, progress
