@@ -325,11 +325,15 @@ fn register_with<R: Runtime>(
 /// Open the main window, keeping the webview's profile in the app's folder, so
 /// portable mode leaves nothing of the app's behind on the machine.
 fn open_window<R: Runtime>(app: &AppHandle<R>, folder: Option<&Path>) -> tauri::Result<()> {
-    let mut window = WebviewWindowBuilder::new(app, "main", WebviewUrl::default())
-        .title("Astral Index")
-        .inner_size(1000.0, 760.0)
-        // The design's minimum, which excludes phones (decision 0013).
-        .min_inner_size(480.0, 560.0);
+    let mut window = size_overlay_for_development(WebviewWindowBuilder::new(
+        app,
+        "main",
+        WebviewUrl::default(),
+    ))
+    .title("Astral Index")
+    .inner_size(1000.0, 760.0)
+    // The design's minimum, which excludes phones (decision 0013).
+    .min_inner_size(480.0, 560.0);
     if let Some(folder) = folder {
         window = window.data_directory(database::webview_folder(folder));
     }
@@ -347,6 +351,44 @@ fn zoom_for_development<R: Runtime>(window: &tauri::WebviewWindow<R>) -> tauri::
 #[cfg(not(debug_assertions))]
 fn zoom_for_development<R: Runtime>(_: &tauri::WebviewWindow<R>) -> tauri::Result<()> {
     Ok(())
+}
+
+/// Debug builds show the window's size over the page when `ASTRAL_INDEX_SIZE_OVERLAY`
+/// is 1, for finding layout breaks by hand.
+#[cfg(debug_assertions)]
+fn size_overlay_for_development<'a, R: Runtime, M: Manager<R>>(
+    window: WebviewWindowBuilder<'a, R, M>,
+) -> WebviewWindowBuilder<'a, R, M> {
+    with_size_overlay(window, std::env::var(SIZE_OVERLAY_VARIABLE).ok().as_deref())
+}
+/// Release builds never show it.
+#[cfg(not(debug_assertions))]
+fn size_overlay_for_development<'a, R: Runtime, M: Manager<R>>(
+    window: WebviewWindowBuilder<'a, R, M>,
+) -> WebviewWindowBuilder<'a, R, M> {
+    window
+}
+
+/// Debug builds read the size overlay's switch from this variable.
+#[cfg(debug_assertions)]
+pub const SIZE_OVERLAY_VARIABLE: &str = "ASTRAL_INDEX_SIZE_OVERLAY";
+
+/// The page script that asks the webview for the size overlay, when `value` is 1.
+#[cfg(debug_assertions)]
+fn size_overlay_script(value: Option<&str>) -> Option<&'static str> {
+    (value == Some("1")).then_some("window.__ASTRAL_INDEX_SIZE_OVERLAY__ = true;")
+}
+
+/// Add the size overlay's page script to the window when `value` asks for it.
+#[cfg(debug_assertions)]
+fn with_size_overlay<'a, R: Runtime, M: Manager<R>>(
+    window: WebviewWindowBuilder<'a, R, M>,
+    value: Option<&str>,
+) -> WebviewWindowBuilder<'a, R, M> {
+    match size_overlay_script(value) {
+        Some(script) => window.initialization_script(script),
+        None => window,
+    }
 }
 
 /// Debug builds read a webview zoom from this variable, so development under WSL,
@@ -1197,6 +1239,27 @@ mod tests {
         let window = app.get_webview_window("main").unwrap();
         for value in [Some("1.25"), Some("large"), None] {
             assert!(apply_dev_zoom(&window, value).is_ok());
+        }
+    }
+
+    #[test]
+    fn a_size_overlay_is_requested_only_by_one() {
+        assert_eq!(SIZE_OVERLAY_VARIABLE, "ASTRAL_INDEX_SIZE_OVERLAY");
+        assert_eq!(
+            size_overlay_script(Some("1")),
+            Some("window.__ASTRAL_INDEX_SIZE_OVERLAY__ = true;")
+        );
+        for ignored in [None, Some(""), Some("0"), Some("true"), Some(" 1")] {
+            assert_eq!(size_overlay_script(ignored), None, "{ignored:?}");
+        }
+    }
+
+    #[test]
+    fn the_window_opens_with_or_without_a_size_overlay() {
+        for value in [Some("1"), None] {
+            let app = mock_builder().build(mock_context(noop_assets())).unwrap();
+            let window = WebviewWindowBuilder::new(app.handle(), "main", WebviewUrl::default());
+            assert!(with_size_overlay(window, value).build().is_ok());
         }
     }
 
