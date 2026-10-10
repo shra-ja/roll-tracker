@@ -60,8 +60,9 @@ None.
 ## Next
 
 If the probe flake recurs, read its snapshot before rerunning. Next is feature
-0038's checks, including native Windows validation. Banner metadata and art wait
-for the downloader and milestone 12 (decision 0022).
+0048's layout fixes, then 0038's checks, including native Windows validation.
+Banner metadata and art wait for the downloader and milestone 12 (decision
+0022).
 
 ## Keeping this file current
 
