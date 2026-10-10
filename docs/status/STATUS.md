@@ -36,10 +36,7 @@ history import works end to end; Genshin Impact has its screens but no import ye
 
 ## In progress
 
-### Astral brand closed (2026-10-10)
-
-On `docs/close-astral-brand`: decision 0013 points to 0023, and 0047 is done;
-no old mark's path data or colours remain outside archived history.
+None.
 
 ## Known limitations
 
@@ -63,8 +60,9 @@ no old mark's path data or colours remain outside archived history.
 ## Next
 
 If the probe flake recurs, read its snapshot before rerunning. Next is feature
-0038's checks, including native Windows validation. Banner metadata and art wait
-for the downloader and milestone 12 (decision 0022).
+0048's layout fixes, then 0038's checks, including native Windows validation.
+Banner metadata and art wait for the downloader and milestone 12 (decision
+0022).
 
 ## Keeping this file current
 
@@ -147,4 +145,5 @@ research, under a "From" heading.
 - [2026-10-09: Astral brand](history/2026-10-09-astral-brand.md): the sidebar
   lockup and decision 0023.
 - [2026-10-10: application icon](history/2026-10-10-application-icon.md): the
-  generated app icons, their check and the suite discovery probe's timeout.
+  generated app icons, their check, the suite discovery probe's timeout and
+  feature 0047's close.

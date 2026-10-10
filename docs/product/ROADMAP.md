@@ -153,11 +153,13 @@ The first release covers Honkai: Star Rail only
 ([decision 0018](../architecture/decisions/0018-star-rail-first-release.md)).
 
 - [x] [0047 — Astral brand](features/0047-astral-brand.md)
+- [ ] [0048 — Layout fixes](features/0048-layout-fixes.md)
 - [ ] [0038 — Release verification](features/0038-release-verification.md)
 - [ ] [0039 — Distribution](features/0039-distribution.md)
 
-Done when the app carries the Astral brand, and the first release is verified
-on each release OS and distributed in its documented formats.
+Done when the app carries the Astral brand, its screens fit every window size,
+and the first release is verified on each release OS and distributed in its
+documented formats.
 
 ### 11 — Backup, restore and file import
 
@@ -189,6 +191,7 @@ Low-priority follow-ups, outside any milestone until scheduled.
 - [ ] [0042 — Overlap anomaly detection](features/0042-overlap-anomaly-detection.md)
 - [ ] [0043 — Braces audit follow-up](features/0043-braces-audit.md)
 - [ ] [0046 — History gap detection](features/0046-history-gap-detection.md)
+- [ ] [0049 — Automatic page size](features/0049-automatic-page-size.md)
 
 ## Earlier milestone numbers
 
