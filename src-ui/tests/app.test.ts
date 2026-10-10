@@ -153,6 +153,23 @@ function pending() {
   return { handler: () => promise, resolve, reject }
 }
 
+test('a development window opened with the size overlay shows its size; others never do', async () => {
+  expect(document.querySelector('.size-overlay')).toBeNull()
+  const scope = window as { __ASTRAL_INDEX_SIZE_OVERLAY__?: boolean }
+  scope.__ASTRAL_INDEX_SIZE_OVERLAY__ = true
+  try {
+    document.body.innerHTML = '<div id="app"></div>'
+    vi.resetModules()
+    await import('../src/main')
+    await settle()
+    expect(document.querySelector('.size-overlay')?.textContent).toBe(
+      `${window.innerWidth} × ${window.innerHeight}`,
+    )
+  } finally {
+    delete scope.__ASTRAL_INDEX_SIZE_OVERLAY__
+  }
+})
+
 test('opens on Star Rail’s warp history, with the games and screens in a sidebar', () => {
   expect(location.hash).toBe('#/honkai-star-rail/history')
   expect(heading()).toBe('Warp History')
