@@ -82,6 +82,8 @@ test('the bundled native shell works offline, supports keyboard navigation, and 
     // Inspect the real webview through its active native session.
     expect(await app.execute('return location.protocol')).toBe('tauri:')
     expect(await app.execute('return document.title')).toBe('Astral Index')
+    // Without ASTRAL_INDEX_SIZE_OVERLAY, no size overlay is shown.
+    expect(await app.execute('return document.querySelector(".size-overlay") === null')).toBe(true)
     // The first screen renders once the router resolves, and its empty state once the
     // saved history has been read, so wait for each rather than reading once.
     await expect.poll(() => heading(app), { timeout: 10000 }).toBe('Warp History')
@@ -1040,7 +1042,9 @@ test('a retrieval with no history creates no account, and an ended retrieval’s
 }, 120000)
 
 test('a development zoom scales the webview, so WSL can match the Windows display scale', async () => {
-  const { app } = await launchMock('no-history', { env: { ASTRAL_INDEX_ZOOM: '1.25' } })
+  const { app } = await launchMock('no-history', {
+    env: { ASTRAL_INDEX_ZOOM: '1.25', ASTRAL_INDEX_SIZE_OVERLAY: '1' },
+  })
   try {
     await expect
       .poll(() => textOf(app, '[role=status] h2'), { timeout: 10000 })
@@ -1049,7 +1053,26 @@ test('a development zoom scales the webview, so WSL can match the Windows displa
     // The window is 1000 pixels wide inside, so at 125% the page is 800 wide.
     const width = await app.execute<number>('return window.innerWidth')
     expect(Math.abs(width - 800)).toBeLessThanOrEqual(2)
+    // Opened with the size overlay, the corner shows the page's size and scale, and
+    // follows a resize.
+    const overlay = () =>
+      app.execute<{ shown?: string; expected: string }>(`
+        const scale = Math.round(devicePixelRatio * 100) / 100;
+        return {
+          shown: document.querySelector('.size-overlay')?.textContent,
+          expected: innerWidth + ' × ' + innerHeight + (scale === 1 ? '' : ' · ' + scale + '×'),
+        };
+      `)
+    const matches = async () => {
+      const { shown, expected } = await overlay()
+      return shown === expected
+    }
+    await expect.poll(matches, { timeout: 5000 }).toBe(true)
+    expect((await overlay()).shown).toMatch(/^\d+ × \d+ · 1\.25×$/)
     await app.screenshot('e2e-mock-zoom')
+    await app.command('/window/rect', 'POST', { width: 1280, height: 900 })
+    await expect.poll(async () => (await overlay()).shown, { timeout: 5000 }).not.toMatch(/^80\d /)
+    expect(await matches()).toBe(true)
     await app.close()
   } finally {
     await app.dispose()

@@ -4,14 +4,19 @@
 import { computed, provide } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import AppSidebar from './components/layout/AppSidebar.vue'
+import SizeOverlay from './components/layout/SizeOverlay.vue'
 import { retrievalKey } from './composables/retrieval'
 import { useRetrieval } from './composables/useRetrieval'
+import { useWindowSize } from './composables/useWindowSize'
+import { sizeOverlayRequested } from './dev-options'
 import type { Game, Screen } from './format'
 
 provide(retrievalKey, useRetrieval())
 const route = useRoute()
 const game = computed(() => route.params.game as Game)
 const screen = computed(() => route.name as Screen)
+// A debug build opened with ASTRAL_INDEX_SIZE_OVERLAY=1 shows the window's size.
+const size = sizeOverlayRequested() ? useWindowSize() : null
 </script>
 
 <template>
@@ -19,6 +24,7 @@ const screen = computed(() => route.name as Screen)
     <!-- Shown once the router has resolved the first screen. -->
     <AppSidebar v-if="route.name" :game :screen />
     <RouterView />
+    <SizeOverlay v-if="size" v-bind="size" />
   </div>
 </template>
 

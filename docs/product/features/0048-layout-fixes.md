@@ -1,6 +1,6 @@
 # 0048 — Layout fixes
 
-Status: Planned · Milestone 10, Release readiness
+Status: In progress · Milestone 10, Release readiness
 Decisions: [0013](../../architecture/decisions/0013-visual-design.md)
 
 Make every screen use the window well from the 480×560 minimum to very large
@@ -13,7 +13,7 @@ checked natively at 480×560, 1000×760, 1600×1000 and 2560×1440.
 Each task is one PR, in this order. Each fix is checked natively, test first,
 with end-to-end checks at those window sizes and screenshots looked at by eye.
 
-- [ ] Add a window size overlay for development: started with
+- [x] Add a window size overlay for development: started with
   `ASTRAL_INDEX_SIZE_OVERLAY=1`, a development run (`npm run tauri:mock` or
   `tauri dev`) shows the window's width and height in CSS pixels in a corner,
   with the zoom when it is not 1, updating live while the window is resized, so
